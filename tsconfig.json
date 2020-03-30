@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./",
+    // [메타 데이터 데코레이션] 기본 설정
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    // [ORM] null 값과 undefined 값에 대한 경고를 제거(default값 체크 방지)
+    "strictNullChecks": false,
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "src/types/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
