@@ -1,19 +1,18 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import cors from "cors";
+import dotenv from 'dotenv';
+import express, { Application, NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import nocache from "nocache";
-import cors from "cors";
-import { requestLoggerMiddleware } from "./core/middleware/HttpLoggerMiddleware";
-import httpStatus from "http-status-codes";
-import dotenv from 'dotenv';
-dotenv.config();
-
 // DB 연결
 import DBConnection from "./core/db/DBConnection";
+// 미들웨어
+import { requestLoggerMiddleware } from "./core/middleware/HttpLoggerMiddleware";
 // 라우터
 import AuthRoutes from "./core/routes/AuthRoutes";
 import IndexRoutes from "./core/routes/IndexRoutes";
+import RoleRoutes from "./core/routes/RoleRoutes";
 import UserRoutes from "./core/routes/UserRoutes";
-
+dotenv.config();
 
 export class App {
     private app: Application;
@@ -57,6 +56,7 @@ export class App {
         this.app.use(IndexRoutes);
         this.app.use("/auth", AuthRoutes);
         this.app.use("/users", UserRoutes);
+        this.app.use("/roles", RoleRoutes);
     }
 
     private dbconn(): void {

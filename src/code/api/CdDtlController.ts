@@ -2,36 +2,36 @@ import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status-codes";
 import _ from "lodash";
 import HttpError from "../../core/error/HttpError";
-import { User } from "../entity/User";
-import UserChangeService from "../service/UserChangeService";
-import UserRetireveService from "../service/UserRetireveService";
+import { CdDtl } from "../entity/CdDtl";
+import CdDtlChangeService from "../service/CdDtlChangeService";
+import CdDtlRetireveService from "../service/CdDtlRetireveService";
 
-export default class UserController {
-    // 사용자 조회 서비스
-    private userRetireveService: UserRetireveService = new UserRetireveService;
-    // 사용자 변경 서비스
-    private userChangeService: UserChangeService = new UserChangeService;
+export default class CdDtlController {
+    // 코드상세 조회 서비스
+    private cdDtlRetireveService: CdDtlRetireveService = new CdDtlRetireveService;
+    // 코드상세 변경 서비스
+    private cdDtlChangeService: CdDtlChangeService = new CdDtlChangeService;
 
     /**
-     * 전체 사용자 목록을 조회한다.
+     * 전체 코드상세 목록을 조회한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public getList = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let users: User[];
+        let cdDtls: CdDtl[];
         try {
-            users = await this.userRetireveService.getList();
+            cdDtls = await this.cdDtlRetireveService.getList();
 
-            if (_.isEmpty(users)) {
+            if (_.isEmpty(cdDtls)) {
                 res.status(httpStatus.NO_CONTENT);
             }
             else {
                 res.status(httpStatus.OK);
             }
 
-            res.send({ data: { users } });
+            res.send({ data: { cdDtls } });
         }
         catch (e) {
             next(new HttpError(httpStatus.INTERNAL_SERVER_ERROR, httpStatus.getStatusText(httpStatus.INTERNAL_SERVER_ERROR)));
@@ -42,25 +42,25 @@ export default class UserController {
     }
 
     /**
-     * 특정 사용자를 조회한다.
+     * 특정 코드상세를 조회한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let user: User;
+        let cdDtl: CdDtl;
         try {
-            user = await this.userRetireveService.get(req.params.id);
+            cdDtl = await this.cdDtlRetireveService.get(req.params.id);
 
-            if (_.isUndefined(user)) {
+            if (_.isUndefined(cdDtl)) {
                 res.status(httpStatus.NOT_FOUND);
             }
             else {
                 res.status(httpStatus.OK);
             }
 
-            res.send({ data: { user } });
+            res.send({ data: { cdDtl } });
         }
         catch (e) {
             next(new HttpError(httpStatus.INTERNAL_SERVER_ERROR, httpStatus.getStatusText(httpStatus.INTERNAL_SERVER_ERROR)));
@@ -71,7 +71,7 @@ export default class UserController {
     }
 
     /**
-     * 신규 사용자를 등록한다.
+     * 신규 코드상세를 등록한다.
      * 
      * @param req 요청
      * @param res 응답
@@ -79,7 +79,7 @@ export default class UserController {
      */
     public register = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
         try {
-            this.userChangeService.register(req.body);
+            this.cdDtlChangeService.register(req.body);
         }
         catch (e) {
             next(new HttpError(httpStatus.INTERNAL_SERVER_ERROR, httpStatus.getStatusText(httpStatus.INTERNAL_SERVER_ERROR)));
@@ -89,22 +89,22 @@ export default class UserController {
     }
 
     /**
-     * 특정 사용자를 변경한다.
+     * 특정 코드상세를 변경한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public update = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let user: User;
+        let cdDtl: CdDtl;
         try {
-            user = await this.userRetireveService.get(req.params.id);
+            cdDtl = await this.cdDtlRetireveService.get(req.params.id);
 
-            if (_.isUndefined(user)) {
+            if (_.isUndefined(cdDtl)) {
                 res.status(httpStatus.NOT_FOUND);
             }
             else {
-                await this.userChangeService.update(user, req.body);
+                await this.cdDtlChangeService.update(cdDtl, req.body);
                 res.status(httpStatus.CREATED);
             }
 
@@ -119,22 +119,22 @@ export default class UserController {
     }
 
     /**
-     * 특정 사용자를 삭제한다.
+     * 특정 코드상세를 삭제한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public delete = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let user: User;
+        let cdDtl: CdDtl;
         try {
-            user = await this.userRetireveService.get(req.params.id);
+            cdDtl = await this.cdDtlRetireveService.get(req.params.id);
 
-            if (_.isUndefined(user)) {
+            if (_.isUndefined(cdDtl)) {
                 res.status(httpStatus.NOT_FOUND);
             }
             else {
-                await this.userChangeService.delete(user);
+                await this.cdDtlChangeService.delete(cdDtl);
                 res.status(httpStatus.CREATED);
             }
 

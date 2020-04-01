@@ -1,7 +1,9 @@
 ## Node js 서버 보일러 플레이트
 
 설치목록
+
 > 디펜던시
+
 - npm i dotenv winston lodash express http-status-codes cors helmet bcrypt jsonwebtoken typeorm mysql2 reflect-metadata
 
 ~~~
@@ -20,6 +22,7 @@ mysql2 : mysql
 ~~~
 
 > 개발 디펜던시
+
 - npm i -D typescript tslint ts-node tslint-config-prettier nodemon @babel/cli @babel/core @babel/node @babel/preset-env @types/dotenv @types/winston @types/lodash @types/express @types/http-status-codes @types/cors @types/helmet @types/bcrypt @types/jsonwebtoken
 
 ~~~

@@ -2,25 +2,25 @@ import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status-codes";
 import _ from "lodash";
 import HttpError from "../../core/error/HttpError";
-import { User } from "../entity/User";
-import UserChangeService from "../service/UserChangeService";
-import UserRetireveService from "../service/UserRetireveService";
+import { CdGrp } from "../entity/CdGrp";
+import CdGrpChangeService from "../service/CdGrpChangeService";
+import CdGrpRetireveService from "../service/CdGrpRetireveService";
 
-export default class UserController {
-    // 사용자 조회 서비스
-    private userRetireveService: UserRetireveService = new UserRetireveService;
-    // 사용자 변경 서비스
-    private userChangeService: UserChangeService = new UserChangeService;
+export default class CdGrpController {
+    // 코드그룹 조회 서비스
+    private userRetireveService: CdGrpRetireveService = new CdGrpRetireveService;
+    // 코드그룹 변경 서비스
+    private userChangeService: CdGrpChangeService = new CdGrpChangeService;
 
     /**
-     * 전체 사용자 목록을 조회한다.
+     * 전체 코드그룹 목록을 조회한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public getList = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let users: User[];
+        let users: CdGrp[];
         try {
             users = await this.userRetireveService.getList();
 
@@ -42,14 +42,14 @@ export default class UserController {
     }
 
     /**
-     * 특정 사용자를 조회한다.
+     * 특정 코드그룹을 조회한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let user: User;
+        let user: CdGrp;
         try {
             user = await this.userRetireveService.get(req.params.id);
 
@@ -71,7 +71,7 @@ export default class UserController {
     }
 
     /**
-     * 신규 사용자를 등록한다.
+     * 신규 코드그룹을 등록한다.
      * 
      * @param req 요청
      * @param res 응답
@@ -89,14 +89,14 @@ export default class UserController {
     }
 
     /**
-     * 특정 사용자를 변경한다.
+     * 특정 코드그룹을 변경한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public update = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let user: User;
+        let user: CdGrp;
         try {
             user = await this.userRetireveService.get(req.params.id);
 
@@ -119,14 +119,14 @@ export default class UserController {
     }
 
     /**
-     * 특정 사용자를 삭제한다.
+     * 특정 코드그룹을 삭제한다.
      * 
      * @param req 요청
      * @param res 응답
      * @param next 다음함수
      */
     public delete = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        let user: User;
+        let user: CdGrp;
         try {
             user = await this.userRetireveService.get(req.params.id);
 
